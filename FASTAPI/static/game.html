@@ -1,16 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style/index.css" />
     <title>Images</title>
 </head>
+
 <body>
-    <h1>Left Image</h1>
+    <div style=" display: 'flex' ; flex-direction: 'column' ; align-items: 'center' ">
+        <Link to="/" class='link' style=" position: 'absolute' ; top: '5vh' ; left: '5vw' ; color: '#0D0D0D' ;
+            text-decoration: 'none' ; font-weight: '200' ; font-size: '1.8rem' ; padding-left: '0' ">
+        EXIT
+        </Link>
+        <h1 style=" padding: '3vw' ">{Timer}</h1>
+        <div style=" display: 'flex' ; justify-content: 'space-evenly' ; width: '100%' ">
+            <div class="scale" style=" display: 'flex' ; flex-direction: 'column' ; align-items: 'center' ">
+                <div class="circle" style=" width: '25vw' ; height: '25vw' ; background-color: '#F3CEA2' ">
+                    <img id="left-image" src="" alt="Left Image" class="centered-image" />
+                </div>
+                <h1 style=" padding: '3vw' ">{Options[0]}</h1>
+            </div>
+            <div style=" border-left: '1px solid #0D0D0D' ; height: '25vw' "></div>
+            <div class="scale" style=" display: 'flex' ; flex-direction: 'column' ; align-items: 'center' ">
+                <div class="circle" style=" width: '25vw' ; height: '25vw' ; background-color: '#F3CEA2' ">
+                    <img id="right-image" src="" alt="Right Image" class="centered-image" />
+                </div>
+                <h1 style=" padding: '3vw' ">{Options[1]}</h1>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- <h1>Left Image</h1>
     <img id="left-image" src="" alt="Left Image" width="300">
-    
+
     <h1>Right Image</h1>
-    <img id="right-image" src="" alt="Right Image" width="300">
+    <img id="right-image" src="" alt="Right Image" width="300"> -->
 
     <form action="/left/" method="post">
         <button type="submit">LEFT</button>
@@ -33,11 +63,12 @@
             right_image.src = "/get_img/" + data["right_img"]
         }
         fetchItems();
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             fetchItems();
             // 5초마다 페이지 새로고침
             setInterval(fetchItems, 5000);
         });
     </script>
 </body>
+
 </html>

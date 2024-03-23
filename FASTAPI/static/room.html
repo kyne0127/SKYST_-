@@ -1,18 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style/index.css" />
     <title>Room</title>
 </head>
-<body>
-    <h1>Room Information</h1>
-    <h2>Room Details:</h2>
-    <p id="room-info"></p>
 
-    <h2>Users:</h2>
-    <ul id="user_list">
-    </ul>
+<body>
+
+    <div>
+        <Row class="align-items-center mb-5">
+            <Col lg="12" class="d-flex justify-content-center align-items-center mt-3">
+            <h4>원하는대로 고르기</h4>
+            </Col>
+            <Col lg="12" class="d-flex justify-content-center align-items-center mt-2 mb-2">
+            <h1>배고파요</h1>
+            </Col>
+            <Col lg="12" class="d-flex justify-content-center align-items-center mt-2 mb-5">
+            <h3>{nameList.length}명이 대기 중입니다.</h3>
+            </Col>
+
+            <Col xs="12" lg="6" class="d-flex flex-column align-items-center">
+            <img src={photoqr} alt="QR코드" class="centered-image" style=" width: '35vh' ; height: '35vh' ;
+                max-width: 'none' " />
+            <p className='link' style=" margin-top: '1vw' ">링크 공유하기</p>
+            </Col>
+            <Col xs="12" lg="5" id="scrollBar" style=" max-height: '37vh' ; overflow-y: 'auto' ; padding-left: '3vw' ">
+            <!-- {nameList.map((name, index) => (
+            <Row key={index} className="align-items-center">
+                <div className="circle" style={{ width: '10px' , height: '10px' }} />
+                &nbsp;&nbsp;
+                <h3 className='ms-5'>
+                    {name}
+                </h3>
+            </Row>
+            ))} -->
+
+            <ul id="user_list">
+            </ul>
+
+            </Col>
+            <Col lg="1">
+
+            </Col>
+        </Row>
+        <div style="width: 'fit-content' ; margin: '0 auto' ">
+            <div style="width: 'fit-content' ">
+                <Link to="/result" className='link' style=" color: '#0D0D0D' ; text-decoration: 'none' ;
+                    width: 'fit-content' ; font-weight: '200' ; font-size: '1.8rem' ">START</Link>
+            </div>
+        </div>
+    </div>
 
     <script>
         async function fetchItems() {
@@ -27,14 +70,15 @@
             });
         }
         fetchItems();
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             fetchItems();
             // 5초마다 페이지 새로고침
             setInterval(fetchItems, 5000);
         });
     </script>
-        <form action="/get-play" method="post">
-            <button type="submit">Play</button>
-        </form>
+    <form action="/get-play" method="post">
+        <button type="submit">Play</button>
+    </form>
 </body>
+
 </html>
