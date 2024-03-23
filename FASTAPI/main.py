@@ -23,8 +23,10 @@ class Room(BaseModel):
     id: int
     users: list
     usernum: int
+    endnum: int
     flag: int
     result: dict
+    endresult: str
 
 class User(BaseModel):
     username: str
@@ -61,7 +63,7 @@ async def create_room(room_id: int = Form(...), example_cookie: str = Cookie(Non
     # 통과
     print(room_id)
     cookie_dict = eval(example_cookie)
-    room = Room(id=room_id, users=[cookie_dict['user_name']], usernum=1, owner=cookie_dict['user_name'], flag=0,result={cookie_dict['user_name']:[]})
+    room = Room(id=room_id, users=[cookie_dict['user_name']], usernum=1, endnum = 1,owner=cookie_dict['user_name'], flag=0,result={cookie_dict['user_name']:[]}, endresult="")
     rooms.append(room)
     cookie_dict['room_id'] = room_id
     cookie_value = str(cookie_dict)
@@ -158,7 +160,7 @@ async def game_info(room_id: int, game_ctr: int, img_path: str):
     return FileResponse("img/" + img_path, media_type="image/jpeg")
 
 @app.post("/left/")
-def get_left(example_cookie: str = Cookie(None)):
+async def get_left(example_cookie: str = Cookie(None)):
     print("left")
     cookie_dict = eval(example_cookie)
     room_id = cookie_dict['room_id']
@@ -168,12 +170,20 @@ def get_left(example_cookie: str = Cookie(None)):
     user_name = cookie_dict['user_name']
     test_room.result[user_name].append(0)
     cookie_dict['game_ctr'] += 1
-    response = RedirectResponse("/room/"+str(room_id)+"/game/"+str(cookie_dict['game_ctr']))
     cookie_value = str(cookie_dict)
-    response.set_cookie(key="example_cookie", value=cookie_value)
-    return response
+    if cookie_dict['game_ctr'] > 5: #갯수!
+        test_room.endnum += 1
+        response = RedirectResponse("/room/" + str(room_id) + "/end")
+        response.set_cookie(key="example_cookie", value=cookie_value)
+        return response
+    else:    
+        response = RedirectResponse("/room/"+str(room_id)+"/game/"+str(cookie_dict['game_ctr']))
+        response.set_cookie(key="example_cookie", value=cookie_value)
+        return response
+    
+
 @app.post("/right/")
-def get_right(example_cookie: str = Cookie(None)):
+async def get_right(example_cookie: str = Cookie(None)):
     print("right")
     cookie_dict = eval(example_cookie)
     room_id = cookie_dict['room_id']
@@ -183,10 +193,35 @@ def get_right(example_cookie: str = Cookie(None)):
     user_name = cookie_dict['user_name']
     test_room.result[user_name].append(1) #right is 1
     cookie_dict['game_ctr'] += 1
-    response = RedirectResponse("/room/"+str(room_id)+"/game/"+str(cookie_dict['game_ctr']))
     cookie_value = str(cookie_dict)
-    response.set_cookie(key="example_cookie", value=cookie_value)
-    return response
+    if cookie_dict['game_ctr'] > 5: #갯수!
+        test_room.endnum += 1
+        response = RedirectResponse("/room/" + str(room_id) + "/end")
+        response.set_cookie(key="example_cookie", value=cookie_value)
+        return response
+    else:    
+        response = RedirectResponse("/room/"+str(room_id)+"/game/"+str(cookie_dict['game_ctr']))
+        response.set_cookie(key="example_cookie", value=cookie_value)
+        return response
+
+@app.post("/room/{room_id}/end")
+async def end_room():
+    return FileResponse("static/end.html")
+@app.get("/room/{room_id}/end")
+async def get_endresult(room_id: int):
+    for test_room in rooms:
+        if room_id == test_room.id:
+            break
+    if test_room.endresult == "":
+        if test_room.usernum == test_room.endnum:
+            # 알고리즘 동작 지역
+            test_room.endresult = "pasta"
+        return {"endresult": "wait"}
+    else:
+        return {"endresult": test_room.endresult}
+
+
+
 
 
 
@@ -195,32 +230,3 @@ if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run(app, host="127.0.0.1", port=8000)
-
-
-
-
-
-@app.post("/invite_user/{room_name}/")
-async def invite_user(room_name: str, user: User):
-    room_found = False
-    for room in rooms:
-        if room.name == room_name:
-            room_found = True
-            if len(users.get(room_name, [])) < room.capacity:
-                users.setdefault(room_name, []).append(user.username)
-                return {"message": f"User '{user.username}' invited to room '{room_name}'"}
-            else:
-                raise HTTPException(status_code=400, detail="Room is full")
-    if not room_found:
-        raise HTTPException(status_code=404, detail="Room not found")
-
-
-@app.get("/users/{room_name}/")
-async def get_users(room_name: str):
-    room_users = users.get(room_name, [])
-    if room_users:
-        return {"users": room_users}
-    else:
-        raise HTTPException(status_code=404, detail="Room not found")
-
-

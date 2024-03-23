@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>End Result</title>
+</head>
+<body>
+    <h1>End Result</h1>
+    <div id="result_txt"></div>
+    <script>
+        async function fetchItems() {
+            const response = await fetch(window.location.href);
+            const data = await response.json();
+            const result_txt = document.getElementById("user_list");
+            user_list.innerHTML = "";
+            data.user_list.forEach(user => {
+                const li = document.createElement("li");
+                li.textContent = user;
+                user_list.appendChild(li);
+            });
+        }
+        fetchItems();
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchItems();
+            // 5초마다 페이지 새로고침
+            setInterval(fetchItems, 5000);
+        });
+</script>
+</body>
+</html>
