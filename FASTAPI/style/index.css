@@ -1,150 +1,155 @@
-
-
 @media screen and (min-width:769px) {
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      color: #0D0D0D;
-      font-weight: 200;
-      font-size: 1.8rem;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      background: linear-gradient(#F2EBE5, #F4EAE1);
-      padding: 0 14vw 0 14vw;
-    }
-    
-    code {
-      font-family: 'Inter', sans-serif;
-    }
-    
-    h1 {
-      font-weight: 900;
-      font-size: 2.7rem;
-      color: #0D0D0D;
-    }
-    
-    h2 {
-      font-weight: 700;
-      font-size: 2.2rem;
-      color: rgba(13, 13, 13, 0.75);
-    }
-    
-    h3 {
-      font-weight: 900;
-      font-size: 1.7rem;
-      color: rgba(13, 13, 13, 0.8);
-    }
-    
-    h4 {
-      font-weight: 900;
-      font-size: 1.4rem;
-      color: rgba(13, 13, 13, 0.5);
-    }
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    color: #0D0D0D;
+    font-weight: 200;
+    font-size: 1.8rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: linear-gradient(#F2EBE5, #F4EAE1);
+    padding: 0 14vw 0 14vw;
   }
-  
-  @media screen and (max-width:768px) {
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      color: #0D0D0D;
-      font-weight: 200;
-      font-size: 0.8rem;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      background: linear-gradient(#F2EBE5, #F4EAE1);
-      padding: 0 14vw 0 14vw;
-    }
-    code {
-      font-family: 'Inter', sans-serif;
-    }
-    
-    h1 {
-      font-weight: 900;
-      font-size: 2.1rem;
-      color: #0D0D0D;
-      line-height: 1.5;
-      
-    text-align: center;
-    }
-    
-    h2 {
-      font-weight: 700;
-      font-size: 1.7rem;
-      color: rgba(13, 13, 13, 0.75);
-      
-    text-align: center;
-    }
-    
-    h3 {
-      font-weight: 900;
-      font-size: 1.3rem;
-      color: rgba(13, 13, 13, 0.8);
-    }
-    
-    h4 {
-      font-weight: 900;
-      font-size: 1rem;
-      color: rgba(13, 13, 13, 0.5);
-    }
+
+  code {
+    font-family: 'Inter', sans-serif;
   }
-  
-  .link {
+
+  h1 {
+    font-weight: 900;
+    font-size: 2.7rem;
+    color: #0D0D0D;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: 2.2rem;
+    color: rgba(13, 13, 13, 0.75);
+  }
+
+  h3 {
+    font-weight: 900;
+    font-size: 1.7rem;
+    color: rgba(13, 13, 13, 0.8);
+  }
+
+  h4 {
+    font-weight: 900;
+    font-size: 1.4rem;
     color: rgba(13, 13, 13, 0.5);
-    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width:768px) {
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    color: #0D0D0D;
+    font-weight: 200;
+    font-size: 0.8rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: linear-gradient(#F2EBE5, #F4EAE1);
+    padding: 0 14vw 0 14vw;
+  }
+
+  code {
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1 {
     font-weight: 900;
-    text-decoration: none;
-    display: inline-block;
-    position: relative;
+    font-size: 2.1rem;
+    color: #0D0D0D;
+    line-height: 1.5;
+
+    text-align: center;
   }
-  
-  .link::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(13, 13, 13, 0.3);
-    transform-origin: bottom right;
-    transition: transform 0.25s ease-out;
+
+  h2 {
+    font-weight: 700;
+    font-size: 1.7rem;
+    color: rgba(13, 13, 13, 0.75);
+
+    text-align: center;
   }
-  
-  .link:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-  }
-  
-  
-  .link2 {
-    color: rgba(13, 13, 13, 1);
-    font-size: 1rem;
+
+  h3 {
     font-weight: 900;
-    text-decoration: none;
-    padding-left: 4vw;
+    font-size: 1.3rem;
+    color: rgba(13, 13, 13, 0.8);
   }
-  
-  header {
+
+  h4 {
+    font-weight: 900;
+    font-size: 1rem;
     color: rgba(13, 13, 13, 0.5);
-    font-size: 1.5rem;
-    font-weight: 100;
-    font-style: none;
-    display: flex;
-    justify-content: space-between;
-    padding: 3vh 0 3vh 0;
   }
-  
-  .logo {
-    color: rgba(13, 13, 13, 1);
-    font-size: 1rem;
-    font-weight: 900;
-    text-decoration: none;
-  }
-  
-  .scale {
-    transition: transform 0.3s ease; /* 변환을 0.3초 동안 부드럽게 만듭니다. */
-  }
-  
-  .scale:hover {
-    transform: scale(1.1);
-  }
+}
+
+.link {
+  color: rgba(13, 13, 13, 0.5);
+  font-size: 1rem;
+  font-weight: 900;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  margin-bottom: a;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(13, 13, 13, 0.3);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.link:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+
+.link2 {
+  color: rgba(13, 13, 13, 1);
+  font-size: 1rem;
+  font-weight: 900;
+  text-decoration: none;
+  padding-left: 4vw;
+}
+
+header {
+  color: rgba(13, 13, 13, 0.5);
+  font-size: 1.5rem;
+  font-weight: 100;
+  font-style: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 3vh 0 3vh 0;
+}
+
+.logo {
+  color: rgba(13, 13, 13, 1);
+  font-size: 1rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.scale {
+  transition: transform 0.3s ease;
+  /* 변환을 0.3초 동안 부드럽게 만듭니다. */
+}
+
+.scale:hover {
+  transform: scale(1.1);
+}
+
+input:focus {
+  outline: none;
+}
