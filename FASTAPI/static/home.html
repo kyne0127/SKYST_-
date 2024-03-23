@@ -8,8 +8,8 @@
 <body>
     <h1>Welcome to the home page!</h1>
     <form action="/create-room/" method="post">
-        <label for="room_name">Room Name:</label>
-        <input type="text" id="room_name" name="room_name" required>
+        <label for="room_id">Room ID:</label>
+        <input type="text" id="room_id" name="room_id" required>
         <button type="submit">Create Room</button>
     </form>
     <br>
@@ -18,5 +18,31 @@
         <input type="text" id="join_id" name="join_id" required>
         <button type="submit">Join Room</button>
     </form>
+    <script>
+        // 쿠키 값을 가져오는 함수
+        function getCookieValue(cookieName) {
+            // 모든 쿠키를 가져와서 ';'로 분할하여 배열로 만듭니다.
+            var cookies = document.cookie.split(';');
+            // 각 쿠키를 순회하며 이름과 값으로 분리합니다.
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // 쿠키 이름이 요청한 이름과 일치하는지 확인합니다.
+                if (cookie.startsWith(cookieName + '=')) {
+                    // 쿠키 값만 추출하여 반환합니다.
+                    return cookie.substring(cookieName.length + 1);
+                }
+            }
+            // 해당하는 쿠키가 없으면 null을 반환합니다.
+            return null;
+        }
+
+        // 원하는 쿠키 이름을 지정하여 해당 쿠키 값을 가져옵니다.
+        var exampleCookieValue = getCookieValue('example_cookie');
+        if (exampleCookieValue) {
+            console.log("Value of example_cookie:", exampleCookieValue);
+        } else {
+            console.log("Cookie not found");
+        }
+    </script>
 </body>
 </html>
