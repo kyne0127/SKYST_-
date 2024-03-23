@@ -9,6 +9,290 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style/index.css" />
     <title>Room</title>
+
+    <style>
+        .rotating-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20vw;
+    height: 20vw;
+    transform: rotate(0deg);
+    transform-origin: 0 -50%;
+    animation: rotateAnimation 1.5s ease-out;
+  }
+  
+  .rotating-image-mobile {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20vw;
+    height: 20vw;
+    transform: rotate(0deg);
+    transform-origin: 0 -100%;
+    animation: rotateAnimation 1.5s ease-out;
+  }
+  
+  @keyframes rotateAnimation {
+    from {
+      transform: rotate(-120deg) translateX(-50%);
+    }
+  
+    to {
+      transform: rotate(0deg) translateX(-50%);
+    }
+  }
+  
+  /* 
+  .rotateStart {
+    transform: rotate(-120deg) translateX(-50%);
+  }
+  
+  .rotateEnd {
+    transform: rotate(0deg) translateX(-50%);
+    transition: transform 1s 0.5s;
+  } */
+  
+  /* .startleft {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  
+  .startright {
+    opacity: 0;
+    transform: translateX(20px);
+  } */
+  
+  .start {
+    animation: fadeOutRight 1s ease-out;
+  }
+  /*
+  .end {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 1s 0.5s, transform 1s 0.5s;
+  } */
+  
+  /* .fade-in {
+    animation: fadeInRight 0.49s ease-in-out;
+  }
+  
+  @keyframes fadeInRight {
+    0% {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+  
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  */
+  
+  @keyframes fadeOutRight {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+  
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+        .circle {
+    width: 200px; /* Diameter of the circle */
+    height: 200px; /* Diameter of the circle */
+    border-radius: 50%; /* Creates a circle */
+    background-color: #F2C165; /* Color of the circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Hide overflow content */
+  }
+  
+  .centered-image {
+    max-width: 56%;
+    max-height: 56%;
+    object-fit: cover; /* Maintain aspect ratio and cover the container */
+  }
+
+  #style-1::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#scrollBar::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: rgba(13,13,13,.1);
+}
+
+#scrollBar::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(13,13,13,.3);
+	background-color: #54878B;
+}
+        @media screen and (min-width:769px) {
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    color: #0D0D0D;
+    font-weight: 200;
+    font-size: 1.8rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: linear-gradient(#F2EBE5, #F4EAE1);
+    padding: 0 14vw 0 14vw;
+  }
+
+  code {
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1 {
+    font-weight: 900;
+    font-size: 2.7rem;
+    color: #0D0D0D;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: 2.2rem;
+    color: rgba(13, 13, 13, 0.75);
+  }
+
+  h3 {
+    font-weight: 900;
+    font-size: 1.7rem;
+    color: rgba(13, 13, 13, 0.8);
+  }
+
+  h4 {
+    font-weight: 900;
+    font-size: 1.4rem;
+    color: rgba(13, 13, 13, 0.5);
+  }
+}
+
+@media screen and (max-width:768px) {
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    color: #0D0D0D;
+    font-weight: 200;
+    font-size: 0.8rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: linear-gradient(#F2EBE5, #F4EAE1);
+    padding: 0 14vw 0 14vw;
+  }
+
+  code {
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1 {
+    font-weight: 900;
+    font-size: 2.1rem;
+    color: #0D0D0D;
+    line-height: 1.5;
+
+    text-align: center;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: 1.7rem;
+    color: rgba(13, 13, 13, 0.75);
+
+    text-align: center;
+  }
+
+  h3 {
+    font-weight: 900;
+    font-size: 1.3rem;
+    color: rgba(13, 13, 13, 0.8);
+  }
+
+  h4 {
+    font-weight: 900;
+    font-size: 1rem;
+    color: rgba(13, 13, 13, 0.5);
+  }
+}
+
+.link {
+  color: rgba(13, 13, 13, 0.5);
+  font-size: 1rem;
+  font-weight: 900;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  margin-bottom: a;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(13, 13, 13, 0.3);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.link:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+
+.link2 {
+  color: rgba(13, 13, 13, 1);
+  font-size: 1rem;
+  font-weight: 900;
+  text-decoration: none;
+  padding-left: 4vw;
+}
+
+header {
+  color: rgba(13, 13, 13, 0.5);
+  font-size: 1.5rem;
+  font-weight: 100;
+  font-style: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 3vh 0 3vh 0;
+}
+
+.logo {
+  color: rgba(13, 13, 13, 1);
+  font-size: 1rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.scale {
+  transition: transform 0.3s ease;
+  /* 변환을 0.3초 동안 부드럽게 만듭니다. */
+}
+
+.scale:hover {
+  transform: scale(1.1);
+}
+
+input:focus {
+  outline: none;
+}
+    </style>
 </head>
 
 <body>
