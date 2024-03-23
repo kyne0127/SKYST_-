@@ -12,13 +12,8 @@
         async function fetchItems() {
             const response = await fetch(window.location.href);
             const data = await response.json();
-            const result_txt = document.getElementById("user_list");
-            user_list.innerHTML = "";
-            data.user_list.forEach(user => {
-                const li = document.createElement("li");
-                li.textContent = user;
-                user_list.appendChild(li);
-            });
+            const result_txt = document.getElementById("result_txt");
+            result_txt.textContent = data["endresult"];
         }
         fetchItems();
         document.addEventListener('DOMContentLoaded', function() {

@@ -213,18 +213,13 @@ async def get_endresult(room_id: int):
         if room_id == test_room.id:
             break
     if test_room.endresult == "":
+        print("2222")
         if test_room.usernum == test_room.endnum:
             # 알고리즘 동작 지역
             test_room.endresult = "pasta"
         return {"endresult": "wait"}
     else:
         return {"endresult": test_room.endresult}
-
-
-
-
-
-
 
 if __name__ == "__main__":
     import uvicorn
