@@ -27,9 +27,10 @@
             const left_image = document.getElementById("left-image");
             var currentUrl = window.location.href;
             console.log(currentUrl + "/" + data["left_img"])
-            left_image.src = currentUrl + "/" + data["left_img"]
+            left_image.src = "/get_img/" + data["left_img"]
+            console.log(left_image.src)
             const right_image = document.getElementById("right-image");
-            right_image.src = currentUrl + "/" + data["right_img"]
+            right_image.src = "/get_img/" + data["right_img"]
         }
         fetchItems();
         document.addEventListener('DOMContentLoaded', function() {

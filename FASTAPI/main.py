@@ -63,7 +63,7 @@ async def create_room(room_id: int = Form(...), example_cookie: str = Cookie(Non
     # 통과
     print(room_id)
     cookie_dict = eval(example_cookie)
-    room = Room(id=room_id, users=[cookie_dict['user_name']], usernum=1, endnum = 1,owner=cookie_dict['user_name'], flag=0,result={cookie_dict['user_name']:[]}, endresult="")
+    room = Room(id=room_id, users=[cookie_dict['user_name']], usernum=1, endnum = 0,owner=cookie_dict['user_name'], flag=0,result={cookie_dict['user_name']:[]}, endresult="")
     rooms.append(room)
     cookie_dict['room_id'] = room_id
     cookie_value = str(cookie_dict)
@@ -154,8 +154,8 @@ async def game_info(room_id: int, game_ctr: int):
     print("HOHO")
     return {"left_img":image_left[game_ctr], "right_img":image_right[game_ctr]}
 
-@app.get("/room/{room_id}/game/{game_ctr}/{img_path}")
-async def game_info(room_id: int, game_ctr: int, img_path: str):
+@app.get("/get_img/{img_path}", response_class=HTMLResponse)
+async def game_info(img_path: str):
     print("HE")
     return FileResponse("img/" + img_path, media_type="image/jpeg")
 
@@ -171,7 +171,7 @@ async def get_left(example_cookie: str = Cookie(None)):
     test_room.result[user_name].append(0)
     cookie_dict['game_ctr'] += 1
     cookie_value = str(cookie_dict)
-    if cookie_dict['game_ctr'] > 5: #갯수!
+    if cookie_dict['game_ctr'] > 8: #갯수!
         test_room.endnum += 1
         response = RedirectResponse("/room/" + str(room_id) + "/end")
         response.set_cookie(key="example_cookie", value=cookie_value)
@@ -194,7 +194,7 @@ async def get_right(example_cookie: str = Cookie(None)):
     test_room.result[user_name].append(1) #right is 1
     cookie_dict['game_ctr'] += 1
     cookie_value = str(cookie_dict)
-    if cookie_dict['game_ctr'] > 5: #갯수!
+    if cookie_dict['game_ctr'] > 8: #갯수!
         test_room.endnum += 1
         response = RedirectResponse("/room/" + str(room_id) + "/end")
         response.set_cookie(key="example_cookie", value=cookie_value)
@@ -212,15 +212,88 @@ async def get_endresult(room_id: int):
     for test_room in rooms:
         if room_id == test_room.id:
             break
+
+    print(test_room.endnum)
     if test_room.endresult == "":
         print("2222")
         if test_room.usernum == test_room.endnum:
             # 알고리즘 동작 지역
-            test_room.endresult = "pasta"
+            result_dict = {}
+            for key in test_room.result:
+                for list in test_room.result[key]:
+                    if list == [1,1,1,1,0,0,0,0,0]:
+                        update_dict("떡볶이", result_dict)
+                    elif list == [1,1,1,1,0,1,0,0,0]:
+                        update_dict("라면", result_dict)
+                    elif list == [1,0,0,0,0,0,0,0,0]:
+                        update_dict("김밥", result_dict)
+                    elif list == [1,0,0,1,1,1,1,0,1]:
+                        update_dict("족발 보쌈", result_dict)
+                    elif list == [1,1,0,1,0,0,0,0,0]:
+                        update_dict("만두", result_dict)
+                    elif list == [1,0,1,1,1,1,0,0,0]:
+                        update_dict("닭도리탕", result_dict)
+                    elif list == [1,0,0,1,0,1,0,0,0]:
+                        update_dict("설렁탕", result_dict)
+                    elif list == [1,0,0,1,0,1,0,0,0]:
+                        update_dict("국밥", result_dict)
+                    elif list == [1,0,0,1,0,1,0,0,0]:
+                        update_dict("냉면", result_dict)
+                    elif list == [1,0,0,1,0,1,0,0,0]:
+                        update_dict("간장게장", result_dict)
+                    elif list == [1,0,1,0,0,1,0,0,1]:
+                        update_dict("김치찌개", result_dict)
+                    elif list == [0,0,0,0,1,1,0,1,0]:
+                        update_dict("초밥", result_dict)
+                    elif list == [0,0,0,1,0,0,0,1,0]:
+                        update_dict("돈가스", result_dict)
+                    elif list == [0,1,0,1,1,1,1,1,0]:
+                        update_dict("오코노미", result_dict)
+                    elif list == [0,1,0,0,0,0,0,1,0]:
+                        update_dict("우동", result_dict)
+                    elif list == [0,0,0,0,1,0,0,1,0]:
+                        update_dict("장어덮밥", result_dict)
+                    elif list == [0,0,0,1,0,0,0,1,0]:
+                        update_dict("라멘", result_dict)
+                    elif list == [0,0,0,0,0,0,0,1,0]:
+                        update_dict("오무라이", result_dict)
+                    elif list == [1,1,0,1,1,1,1,1,1]:
+                        update_dict("해물파전", result_dict)
+                    elif list == [1,0,1,0,0,1,0,1,0]:
+                        update_dict("비빔밥", result_dict)
+                    elif list == [1,0,0,0,0,0,0,1,0]:
+                        update_dict("칼국수", result_dict)
+                    elif list == [1,0,0,0,0,0,0,1,0]:
+                        update_dict("쌈밥", result_dict)
+                    elif list == [0,0,0,1,0,0,0,1,0]:
+                        update_dict("규동", result_dict)
+                    elif list == [0,0,0,0,1,1,1,1,0]:
+                        update_dict("회", result_dict)
+                    elif list == [0,0,0,0,1,1,1,1,0]:
+                        update_dict("샤브샤브", result_dict)
+                    elif list == [1,0,0,0,1,0,0,0,0]:
+                        update_dict("굴비", result_dict)
+                    elif list == [1,0,1,1,0,0,0,0,1]:
+                        update_dict("부대찌개", result_dict)
+                    elif list == [1,0,1,1,0,0,0,0,0]:
+                        update_dict("제육덮밥", result_dict)
+                    else:
+                        update_dict("떡볶이", result_dict)
+            max_value = max(result_dict.values())
+            max_key = None
+            for key, value in result_dict.items():
+                if value == max_value:
+                    max_key = key
+                    break  # 최댓값에 대응하는 키를 찾았으므로 반복 중단
+            test_room.endresult = max_key
         return {"endresult": "wait"}
     else:
         return {"endresult": test_room.endresult}
-
+def update_dict(key, my_dict):
+    if key in my_dict:
+        my_dict[key] += 1
+    else:
+        my_dict[key] = 1
 if __name__ == "__main__":
     import uvicorn
 
