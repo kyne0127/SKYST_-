@@ -11,6 +11,28 @@
     <p>Name: {{ room.name }}</p>
     <p>Owner: {{ room.owner.username }}</p>
     <p>Created At: {{ room.created_at }}</p>
-    <p>Invite Link: <a href="{% url 'room_detail' room.id %}">Join Room</a></p>
+    <p>Invite Link: <a href="{% url 'room_detail' room.id %}">Join Room</a>
+    <p id="num_users">Number of Users in Room: {{ num_users }}</p>
+    <!-- JavaScript를 사용하여 num_users 업데이트 -->
+    <script>
+        function updateNumUsers() {
+            // AJAX를 사용하여 서버에 현재 사용자 수 요청
+            // 이 예시에서는 사용자가 방에 참가하거나 나갈 때마다 서버에서 num_users를 업데이트하도록 가정
+            // 서버에서 업데이트된 num_users를 응답받아 화면에 표시
+            fetch('/get_num_users/{{ room.id }}')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.num_users);
+                    document.getElementById('num_users').innerText = 'Number of Users in Room: ' + data.num_users;
+                });
+        }
+
+        // 페이지가 로드될 때마다 사용자 수 업데이트
+        document.addEventListener('DOMContentLoaded', function() {
+            updateNumUsers();
+            // 5초마다 페이지 새로고침
+            setInterval(updateNumUsers, 5000);
+        });
+    </script>
 </body>
 </html>

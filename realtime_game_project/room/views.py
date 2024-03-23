@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Room
 from django.contrib import messages
 from django.contrib.auth.models import User
-
+from django.http import JsonResponse
 #def create_room(request):
 #    return render(request, 'create_room.html')
 
@@ -34,9 +34,26 @@ def create_room(request):
         return redirect('room_detail', room_id=room.id)  # 방 상세 페이지로 리디렉션
     return render(request, 'create_room.html')
 
- 
+#def room_detail(request, room_id):
+#    room = Room.objects.get(id=room_id)
+#    
+#    # 해당 방에 속한 사용자들의 수 계산
+#    num_users = get_num_users(request, room_id)
+#    
+#    return render(request, 'room_detail.html', {'room': room, 'num_users': num_users})
+
+
+
 def room_detail(request, room_id):
-    print("here2")
     room = Room.objects.get(id=room_id)
-    return render(request, 'room_detail.html', {'room': room})
+
+    # 해당 방에 속한 사용자들의 수 계산
+    num_users = room.users.count()
+
+    # AJAX 요청인 경우 JSON 형식으로 사용자 수 반환
+    if request.headers.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
+        print("here")
+        return JsonResponse({'num_users': num_users})
+    
+    return render(request, 'room_detail.html', {'room': room, 'num_users': num_users})
 

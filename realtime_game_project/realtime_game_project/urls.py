@@ -20,13 +20,14 @@ from django.urls import path
 # room/views.py 파일의 뷰를 사용하는 예시
 from room.views import create_room, room_detail
 from django.views.generic import TemplateView
-from game.views import play_game
 from django.contrib.auth.views import LoginView, LogoutView
+from realtime_game_project.views import home
+from get_num_users.views import get_num_users
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('', home, name='home'),
     path('create/', create_room, name='create_room'),
     path('room/<int:room_id>/', room_detail, name='room_detail'),
-    path('play/<int:room_id>/', play_game, name='play_game'),
+    path('get_num_users/<int:room_id>/', get_num_users, name='get_num_users'),
     # 다른 URL 패턴들을 필요에 따라 추가
     # Add other URLs as needed
 ]

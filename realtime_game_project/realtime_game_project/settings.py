@@ -29,7 +29,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'channels',  # Channels 앱 추가
     'room',  # 방 앱 추가
-    'game',  # 게임 앱 추가
 ]
 
 MIDDLEWARE = [
