@@ -8,6 +8,7 @@ class Room(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     users = models.ManyToManyField(User, related_name='rooms')
+    flag = models.IntegerField(default=0)  # flag 속성 추가
     
     def get_absolute_url(self):
         return reverse('room_detail', args=[str(self.id)])

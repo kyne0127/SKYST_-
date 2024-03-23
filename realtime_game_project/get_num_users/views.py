@@ -10,4 +10,6 @@ def get_num_users(request, room_id):
         return JsonResponse({'error': 'Room not found'}, status=404)
 
     num_users = room.users.count()
-    return JsonResponse({'num_users': num_users})
+    users = room.users.all()
+    user_list = [{'username': user.username} for user in users]
+    return JsonResponse({'num_users': num_users, 'users': user_list})

@@ -13,6 +13,13 @@
     <p>Created At: {{ room.created_at }}</p>
     <p>Invite Link: <a href="{% url 'room_detail' room.id %}">Join Room</a>
     <p id="num_users">Number of Users in Room: {{ num_users }}</p>
+    <div id="user_list">
+        <h2>Users in Room:</h2>
+        <ul id="user_list_ul"></ul>
+    </div>
+    <form method="post">
+        <button type="submit">Play!</button>
+    </form>
     <!-- JavaScript를 사용하여 num_users 업데이트 -->
     <script>
         function updateNumUsers() {
@@ -24,6 +31,17 @@
                 .then(data => {
                     console.log(data.num_users);
                     document.getElementById('num_users').innerText = 'Number of Users in Room: ' + data.num_users;
+                    const userListUl = document.getElementById('user_list_ul');
+                    userListUl.innerHTML = ''; // 기존 목록 비우기
+
+                    data.users.forEach(user => {
+                        const li = document.createElement('li');
+                        li.textContent = user.username;
+                        userListUl.appendChild(li);
+                    });
+                    if (data.flag === 1) {
+                        window.location.href = '/next_page'; // 다음 화면으로 이동하는 URL로 변경 필요
+                    }
                 });
         }
 

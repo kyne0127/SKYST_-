@@ -11,8 +11,6 @@
     <form method="post">
         {% csrf_token %}
         <input type="hidden" name="action" value="create_room">
-        <label for="room_name_create">Room Name:</label>
-        <input type="text" id="room_name_create" name="room_name" required>
         <br>
         <label for="username_create">Your Username:</label>
         <input type="text" id="username_create" name="username" required>
@@ -24,8 +22,8 @@
     <form method="post">
         {% csrf_token %}
         <input type="hidden" name="action" value="join_room">
-        <label for="room_id_join">Room ID:</label>
-        <input type="text" id="room_id_join" name="join_room_name" required>
+        <label for="join_room_id">Room ID:</label>
+        <input type="text" id="join_room_id" name="join_room_id" required>
         <br>
         <label for="username_join">Your Username:</label>
         <input type="text" id="username_join" name="username" required>

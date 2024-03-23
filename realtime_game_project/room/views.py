@@ -44,9 +44,10 @@ def create_room(request):
 
 
 
-def room_detail(request, room_id):
+def room_detail(request, room_id, user):
     room = Room.objects.get(id=room_id)
-
+    user_id = request.session.get('user_id')
+    user_instance = User.objects.get(pk=user_id)
     # 해당 방에 속한 사용자들의 수 계산
     num_users = room.users.count()
 
@@ -54,6 +55,12 @@ def room_detail(request, room_id):
     if request.headers.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
         print("here")
         return JsonResponse({'num_users': num_users})
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        if action == 'create_room':
+            if user_instance == room.owner:
+                   room.flag = 1
+                   room.save()
     
     return render(request, 'room_detail.html', {'room': room, 'num_users': num_users})
 
