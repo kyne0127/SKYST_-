@@ -1,0 +1,16 @@
+<!-- templates/home.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Welcome to the Home Page</h1>
+    <p>Click the button below to create a new room:</p>
+    <form action="{% url 'create_room' %}" method="get">
+        <button type="submit">Create Room</button>
+    </form>
+</body>
+</html>

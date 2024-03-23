@@ -1,0 +1,16 @@
+<!-- room_detail.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Room Detail</title>
+</head>
+<body>
+    <h2>Room Detail</h2>
+    <p>Name: {{ room.name }}</p>
+    <p>Owner: {{ room.owner.username }}</p>
+    <p>Created At: {{ room.created_at }}</p>
+    <p>Invite Link: <a href="{% url 'room_detail' room.id %}">Join Room</a></p>
+</body>
+</html>
