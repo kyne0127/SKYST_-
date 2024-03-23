@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Welcome to the home page!</h1>
+    <form action="/create-room/" method="post">
+        <label for="room_name">Room Name:</label>
+        <input type="text" id="room_name" name="room_name" required>
+        <button type="submit">Create Room</button>
+    </form>
+    <br>
+    <form action="/join-room/" method="post">
+        <label for="join_id">Join ID:</label>
+        <input type="text" id="join_id" name="join_id" required>
+        <button type="submit">Join Room</button>
+    </form>
+</body>
+</html>

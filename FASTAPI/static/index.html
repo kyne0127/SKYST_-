@@ -6,23 +6,11 @@
     <title>Room Management</title>
 </head>
 <body>
-    <h1>Welcome to Room Management System</h1>
-    <label for="username">Enter your username:</label>
-    <input type="text" id="username" name="username">
-    <br><br>
-    <button onclick="createRoom()">Create Room</button>
-    <button onclick="joinRoom()">Join Room</button>
-
-    <script>
-        function createRoom() {
-            var username = document.getElementById("username").value;
-            window.location.href = "/create_room?username=" + username;
-        }
-
-        function joinRoom() {
-            var username = document.getElementById("username").value;
-            window.location.href = "/join_room?username=" + username;
-        }
-    </script>
+    <h1>Welcome to the user registration page!</h1>
+    <form action="/register/" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <button type="submit">Submit</button>
+    </form>
 </body>
 </html>
