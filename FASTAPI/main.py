@@ -162,7 +162,7 @@ def test():
 async def game_info(room_id: int, game_ctr: int):
     print("HOHO")
     
-    return {"left_img":image_left[game_ctr], "right_img":image_right[game_ctr], "left_text":left_text[game_ctr], "right_text":right_text[game_ctr]}
+    return {"left_img":image_left[game_ctr], "right_img":image_right[game_ctr], "left_text":left_text[game_ctr], "right_text":right_text[game_ctr], "game_text":game_text[game_ctr]}
 
 @app.get("/get_img/{img_path}", response_class=HTMLResponse)
 async def game_info(img_path: str):
