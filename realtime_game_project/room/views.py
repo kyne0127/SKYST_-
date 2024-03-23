@@ -31,7 +31,7 @@ def create_room(request):
         room = Room.objects.create(name=room_name, owner=user_instance)
 
         # 필요한 뷰 로직 추가 (예: 방 생성 후 다른 페이지로 리디렉션)
-        return redirect('room_detail', room_number=room.id)  # 방 상세 페이지로 리디렉션
+        return redirect('room_detail', room_id=room.id)  # 방 상세 페이지로 리디렉션
     return render(request, 'create_room.html')
 
  
