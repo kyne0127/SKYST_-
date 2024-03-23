@@ -25,6 +25,8 @@ image_right = ["photo_7.PNG", "photo_15.PNG", "photo_8.PNG", "photo_01.PNG", "ph
 
 result_img_dict = {"떡볶이":"photo_6.PNG", "라면":"photo_8.PNG", "김밥":"photo_3.PNG", "족발 보쌈":"photo_01.PNG", "만두":"photo_9.PNG", "닭도리탕":"src.png", "설렁탕":"photo_310.PNG", "국밥":"photo_310.PNG", "냉면":"photo_04.PNG", "닭발":"photo_16.PNG", "부타동":"photo_1.PNG", "초밥":"photo_14.PNG", "돈가스":"photo_35.PNG", "오코노미":"photo_25.PNG", "우동":"photo_0.PNG", "장어덮밥":"photo_05.PNG", "라멘":"photo_8.PNG", "오무라이":"photo_37.PNG", "해물파전":"photo_17.PNG", "비빔밥":"photo_07.PNG", "칼국수":"photo_28.PNG", "쌈밥":"photo_38.PNG", "규동":"photo_39.PNG", "회":"photo_49.PNG", "샤브샤브":"photo_29.PNG", "굴비":"photo_09.PNG", "부대찌개":"src1.png", "제육덮밥":"src2.png", "결과 취합 중...":""}
 
+result_des_dict = {"떡볶이":"온국민의 국민 간식", "라면":"후루루 짭짭~ 후루루 짭짭~ 맛좋은 라면", "김밥":"잘 말아줘~ 잘 눌러줘~", "족발 보쌈":"야심한 밤에 자꾸 생각나는", "만두":"한 입 가득 행복한 맛", "닭도리탕":"매운 맛에 깊은 감칠맛이 어우러진 푸짐한 닭요리", "설렁탕":"산뜻한 육수에 고기가 촉촉하게 우러난 국민 영양식", "국밥":"주모 여기 국밥 한그릇이요~", "냉면":"차가워 너무나~ 속이 시려 너무나~", "닭발":"매콤한 양념에 푹 빠져든 닭발의 매력에 푸욱 빠져보세요", "부타동":"부드럽고 쫄깃한 돼지고기의 달콤한 맛이 입안 가득히 퍼지는 일본식 덮밥", "초밥":"신선한 회와 다양한 재료가 색다르게 어우러진 일본 전통 요리", "돈가스":"스윙스가 환장하는, 바삭한 튀김옷으로 포장된 속은 부드럽고 촉촉한 돼지고기의 만남", "오코노미":"고기와 해산물, 채소 등이 듬뿍 올라간 다이너마이트한 일본 요리", "우동":"뚝딱 끓여낸 국물에 쫄깃한 우동면이 어우러진 일본식 면요리","장어덮밥":"달콤한 소스와 부드러운 장어가 고소하게 어우러진 일본식 영양식", "라멘":"부드럽고 탱탱한 면과 진한 육수가 어우러진 일본식 면요리", "오무라이":"계란이랑 볶음밥의 완벽한 조화", "해물파전":"비가 오고 네가 생각나, 해물파전", "비빔밥":"다채로운 색감과 매콤한 양념이 어우러진 한식의 대표적인 메뉴", "칼국수":"부드러운 국물에 쫄깃한 칼국수면이 어우러진 국민 영양식", "쌈밥":"신선한 채소와 고기를 곁들여 말아먹는 건강하고 맛있는 한식요리", "규동":"부드럽고 촉촉한 소고기와 신선한 채소가 올라간 일본식 돈부리", "회":"바다내음과 소주한잔이 그리워질 때", "샤브샤브":"다양한 고기와 채소를 뜨거운 국물에 삶아 삶아~", "굴비":"보릿굴비 한마리면 이만한 밥도둑이 없지", "부대찌개":"매콤한 국물에 찐하고 나쁜 맛 가득한 재료들이 어우러진 한 그릇", "제육덮밥":"직장인과 남자들의 소울 푸드"}
+
 class Room(BaseModel):
     owner: str
     id: int
@@ -297,9 +299,9 @@ async def get_endresult(room_id: int):
                     max_key = key
                     break  # 최댓값에 대응하는 키를 찾았으므로 반복 중단
             test_room.endresult = max_key
-        return {"endresult": "결과 취합 중...", "result_img":result_img_dict["결과 취합 중..."]}
+        return {"endresult": "결과 취합 중...", "result_img":result_img_dict["결과 취합 중..."], "result_description":result_des_dict[test_room.endresult]}
     else:
-        return {"endresult": test_room.endresult, "result_img":result_img_dict[test_room.endresult]}
+        return {"endresult": test_room.endresult, "result_img":result_img_dict[test_room.endresult], "result_description":result_des_dict[test_room.endresult]}
 def update_dict(key, my_dict):
     if key in my_dict:
         my_dict[key] += 1

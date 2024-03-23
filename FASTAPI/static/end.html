@@ -22,7 +22,8 @@
             result_txt.textContent = data["endresult"];
             const end_img = document.getElementById("end_img");
             end_img.src = "/get_img/" + data["result_img"]
-
+            const description = document.getElementById("description");
+            description.textContent = data["result_description"];
         }
         fetchItems();
         document.addEventListener('DOMContentLoaded', function() {
