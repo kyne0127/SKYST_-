@@ -13,8 +13,48 @@
 </head>
 
 <body>
+    <script>
+            // 페이지가 로드될 때 타이머 시작
+            document.addEventListener('DOMContentLoaded', function () {
+            // 타이머 초기 값 설정
+            let timer = 15;
+            // 타이머 업데이트 함수
+            function updateTimer() {
+                // 타이머가 0보다 크면 1초씩 감소
+                if (timer > 0) {
+                    timer -= 1;
+                    // 타이머 요소에 현재 타이머 값을 표시
+                    document.getElementById('timer').innerText = timer;
+                } else {
+                    // 타이머가 0 이하이면 타이머 정지
+                    clearInterval(timerInterval);
+                }
+            }
+            // 1초마다 타이머 업데이트 함수 호출
+            const timerInterval = setInterval(updateTimer, 1000);
+        });
+        // 페이지가 로드될 때 이미지 표시 함수 호출
+        async function fetchItems() {
+            const response = await fetch(window.location.href);
+            const data = await response.json();
+            const left_image = document.getElementById("left-image");
+            var currentUrl = window.location.href;
+            console.log(currentUrl + "/" + data["left_img"])
+            left_image.src = "/get_img/" + data["left_img"]
+            console.log(left_image.src)
+            const right_image = document.getElementById("right-image");
+            right_image.src = "/get_img/" + data["right_img"]
+        }
+        fetchItems();
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchItems();
+            // 5초마다 페이지 새로고침
+            setInterval(fetchItems, 5000);
+        });
+    </script>
+
     <div style=" display: flex ; flex-direction: column ; align-items: center ">
-        <h1 style=" padding: 3vw ">{Timer}</h1>
+        <h1 style=" padding: 3vw " id="timer">15</h1>
         <div style=" display: flex ; justify-content: space-evenly ; width: 100% ">
             <div class="scale" style=" display: flex ; flex-direction: column ; align-items: center ">
                 <form action="/left/" method="post">
@@ -40,30 +80,6 @@
 
         </div>
     </div>
-
-
-
-
-    <script>
-        // 페이지가 로드될 때 이미지 표시 함수 호출
-        async function fetchItems() {
-            const response = await fetch(window.location.href);
-            const data = await response.json();
-            const left_image = document.getElementById("left-image");
-            var currentUrl = window.location.href;
-            console.log(currentUrl + "/" + data["left_img"])
-            left_image.src = "/get_img/" + data["left_img"]
-            console.log(left_image.src)
-            const right_image = document.getElementById("right-image");
-            right_image.src = "/get_img/" + data["right_img"]
-        }
-        fetchItems();
-        document.addEventListener('DOMContentLoaded', function () {
-            fetchItems();
-            // 5초마다 페이지 새로고침
-            setInterval(fetchItems, 5000);
-        });
-    </script>
 </body>
 
 </html>

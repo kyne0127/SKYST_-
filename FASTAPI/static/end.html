@@ -9,38 +9,43 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style/index.css" />
+    <link rel="stylesheet" href="../style/Circle.css" />
+    <link rel="stylesheet" href="../style/Animation.css" />
 </head>
 
 <body>
-    <h1>End Result</h1>
-    <div id="result_txt"></div>
+    <script>
+        async function fetchItems() {
+            const response = await fetch(window.location.href); 
+            const data = await response.json();
+            const result_txt = document.getElementById("result_txt");
+            result_txt.textContent = data["endresult"];
+            const end_img = document.getElementById("end_img");
+            end_img.src = "/get_img/" + data["result_img"]
+
+        }
+        fetchItems();
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchItems();
+            // 5초마다 페이지 새로고침
+            setInterval(fetchItems, 5000);
+        });
+</script>
     <div>
-        <div style="margin-top: '-30vw' ; width: '100%' ; height: '50vw' ; z-index: '-1' ; display: 'flex' ;
-            align-items: 'center' ; margin-bottom: '8vw'">
-            <div class="circle" style=" width: '50vw' ; height: '100%' ; margin: '0 auto' ">
+        <div style="margin-top: -30vw ; width: 100% ; height: 50vw ; z-index: -1 ; display: flex ;
+            align-items: center ; margin-bottom: 8vw">
+            <div class="circle" style=" width: 50vw ; height: 100% ; margin: 0 auto ">
             </div>
-            <img class={`rotating-image`} src={list[position].img} alt="돼지국밥" style=" position: 'absolute' ;
-                width: '20vw' ; height: '20vw' ; top: '12vw' ; left: '50%' ; transform: 'translateX(-50%)' " />
+            <img class="rotating-image" id="end_img" src='../img/photo_0.PNG' alt="돼지국밥" style="position: absolute ;
+                width: 20vw ; height: 20vw ; top: 12vw ; left: 50% ; transform: translateX(-50%) " />
         </div>
-        <div style=" position: 'absolute' ; left: '0' ; top: '8vw' ; width: '100%' ">
-            <h4 style=" display: 'flex' ; flex-direction: 'column' ; align-items: 'center' ">{position + 1}위</h4>
+        <div style=" position: absolute ; left: 0 ; top: 4vh ; width: 100% ">
+            <h4 style=" display: flex ; flex-direction: column ; align-items: center ">추천 메뉴</h4>
         </div>
-        <div style=" display: 'flex' ; justify-content: 'space-between' ; align-items: 'center' ">
-            <svg xmlns="http://www.w3.org/2000/svg" width="2vw" height="2vw" fill="currentColor"
-                class="bi bi-chevron-left" viewBox="0 0 16 16" opacity={opacityLeft} onClick={handleLeftArrowClick}>
-                <path fill-rule="evenodd"
-                    d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
-            </svg>
-            <div style=" display: 'flex' ; flex-direction: 'column' ; align-items: 'center' ">
-                <h1 class={`start ${fade}`} style=" margin: '3vh 0' ">{list[position].des1} <mark style="
-                        background-color: '#54878B' ; color: 'white' ">{list[position].menu}</mark></h1>
-                <h2 class={`start ${fade}`}>{list[position].des2}</h2>
+        <div style="align-items: center; margin-top: 40vh;">
+            <div style=" display: flex ; flex-direction: column ; align-items: center ">
+                <h1 id="result_txt" class="start end" style=" margin: 3vh 0 ">이제 정말 배고파</h1>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="2vw" height="2vw" fill="currentColor"
-                class="bi bi-chevron-right" viewBox="0 0 16 16" opacity={opacityRight} onClick={handleRightArrowClick}>
-                <path fill-rule="evenodd"
-                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
-            </svg>
         </div>
     </div>
 </body>
