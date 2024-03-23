@@ -44,6 +44,13 @@
             console.log(left_image.src)
             const right_image = document.getElementById("right-image");
             right_image.src = "/get_img/" + data["right_img"]
+            const left_text = document.getElementById("left_text");
+            const right_text = document.getElementById("right_text");
+            left_text.textContent = data["left_text"];
+            right_text.textContent = data["right_text"];
+            const game_text = document.getElementById("game_text");
+            game_text.textContent = data["game_text"];
+
         }
         fetchItems();
         document.addEventListener('DOMContentLoaded', function () {
@@ -64,7 +71,7 @@
                         </div>
                     </button>
                 </form>
-                <h1 style=" padding: 3vw ">{Options[0]}</h1>
+                <h1 id="left_text" style=" padding: 3vw ">{Options[0]}</h1>
             </div>
             <div style=" border-left: 1px solid #0D0D0D ; height: 25vw "></div>
             <div class="scale" style=" display: flex ; flex-direction: column ; align-items: center ">
@@ -75,10 +82,9 @@
                         </div>
                     </button>
                 </form>
-                <h1 style=" padding: 3vw ">{Options[1]}</h1>
-                <h2 style=" padding: 3vw ">{Options[2]}</h1>
+                <h1 id="right_text", style=" padding: 3vw ">{Options[1]}</h1>
+                <h2 id="game_text",style=" padding: 3vw ">{Options[2]}</h1>
             </div>
-
         </div>
     </div>
 </body>

@@ -15,7 +15,7 @@
 <body style="text-align: center;">
     <div style="display: flex; flex-direction: column; align-items: center; margin-top: 15vh; margin-bottom: 10vh; ">
         <div class="circle" style=" width: 35vh; height: 35vh; background-color: #F3CEA2 ">
-            <img src="../img/photo_1.PNG" alt="돼지국밥" class="centered-image" />
+            <img id="pig", src="/get_img/photo_1.PNG" alt="돼지국밥" class="centered-image" />
         </div>
     </div>
     <h4 style="margin-bottom: 3vh; color: #F1B8C4;">별명</h4>
@@ -26,6 +26,13 @@
         <button class="link" type="submit"
             style="font-weight: 100; border-style: none; background-color: transparent; width: fit-content; margin-bottom: 10vh;">SUBMIT</button>
     </form>
+    <script>
+        async function fetchItems() {
+            const pig_image = document.getElementById("pig");
+            pig_image.src = "/get_img/photo_1.PNG"
+        }
+        fetchItems();
+    </script>
 </body>
 
 </html>

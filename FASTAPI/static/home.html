@@ -16,7 +16,7 @@
     <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-left: 3vw;">
         <div style="display: flex; flex-direction: column; align-items: center; ">
             <div class="circle" style=" width: 25vw; height: 25vw; background-color: #F3CEA2 ">
-                <img src="../img/photo_1.PNG" alt="돼지국밥" class="centered-image" />
+                <img id="pig", src="/get_img/photo_1.PNG" alt="돼지국밥" class="centered-image" />
             </div>
         </div>
         <div style="display: flex; flex-direction: column; text-align: left; margin-right: 5vw;">
@@ -68,6 +68,11 @@
         } else {
             console.log("Cookie not found");
         }
+        async function fetchItems() {
+            const pig_image = document.getElementById("pig");
+            pig_image.src = "/get_img/photo_1.PNG"
+        }
+        fetchItems();
     </script>
 </body>
 
