@@ -11,43 +11,27 @@
     <p id="room-info"></p>
 
     <h2>Users:</h2>
-    <ul>
-        {% for room in rooms %}
-        {% if room.id == room_id %}
-        <li>Room ID: {{ room.id }}</li>
-        <li>Owner: {{ room.owner }}</li>
-        <li>Number of Users: {{ room.usernum }}</li>
-        <li>Users: {{ room.users }}</li>
-        {% endif %}
-        {% endfor %}
+    <ul id="user_list">
     </ul>
 
     <script>
-        // 쿠키에서 방 정보 가져오기
-        var roomCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('example_cookie'));
-        var roomInfo = roomCookie ? JSON.parse(roomCookie.split('=')[1]) : {};
-
-        // 방 정보 표시
-        var roomInfoElement = document.getElementById("room-info");
-        if (roomInfoElement) {
-            roomInfoElement.textContent = "Room Name: " + roomInfo.room_name + ", Room ID: " + roomInfo.room_id;
-        }
-
-        // 사용자 목록 가져와서 표시
-        var userListElement = document.getElementById("user-list");
-        if (userListElement) {
-            // 사용자 목록 문자열
-            var usersString = "['User1', 'User2', 'User3']";  // 실제로는 쿠키나 서버에서 가져와야 합니다.
-            // 문자열을 JavaScript 배열로 변환
-            var users = eval(usersString);
-
-            // 각 사용자를 목록에 추가
-            users.forEach(function(user) {
-                var listItem = document.createElement("li");
-                listItem.textContent = user;
-                userListElement.appendChild(listItem);
+        async function fetchItems() {
+            const response = await fetch(window.location.href);
+            const data = await response.json();
+            const user_list = document.getElementById("user_list");
+            user_list.innerHTML = "";
+            data.user_list.forEach(user => {
+                const li = document.createElement("li");
+                li.textContent = user;
+                user_list.appendChild(li);
             });
         }
+        fetchItems();
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchItems();
+            // 5초마다 페이지 새로고침
+            setInterval(fetchItems, 5000);
+        });
     </script>
         <form action="/get-play" method="post">
             <button type="submit">Play</button>

@@ -8,20 +8,23 @@ from fastapi import FastAPI, Form
 from fastapi.responses import HTMLResponse, FileResponse
 import uvicorn
 import json
+import os
 
 app = FastAPI()
 
 # 임시적으로 저장할 데이터베이스
 rooms = []
 users = []
-
-
+img_dir = os.listdir("./img")
+image_left = img_dir[5:]
+image_right = img_dir[:5]
 class Room(BaseModel):
     owner: str
     id: int
     users: list
     usernum: int
     flag: int
+    result: dict
 
 class User(BaseModel):
     username: str
@@ -58,12 +61,13 @@ async def create_room(room_id: int = Form(...), example_cookie: str = Cookie(Non
     # 통과
     print(room_id)
     cookie_dict = eval(example_cookie)
-    room = Room(id=room_id, users=[cookie_dict['user_name']], usernum=1, owner=cookie_dict['user_name'], flag=0)
+    room = Room(id=room_id, users=[cookie_dict['user_name']], usernum=1, owner=cookie_dict['user_name'], flag=0,result={cookie_dict['user_name']:[]})
     rooms.append(room)
     cookie_dict['room_id'] = room_id
     cookie_value = str(cookie_dict)
     print(cookie_value)
-    room_url = f"/room/{room_id}param1={room_id}"
+    #room_url = f"/room/{room_id}param1={room_id}"
+    room_url = f"/room/{room_id}"
     response = RedirectResponse(url=room_url)
     response.set_cookie(key="example_cookie", value=cookie_value)
     print("here")
@@ -84,9 +88,11 @@ async def join_room(join_id: int = Form(...), example_cookie: str = Cookie(None)
     cookie_dict = eval(example_cookie)
     test_room.users.append(cookie_dict['user_name'])
     test_room.usernum += 1
+    test_room.result[cookie_dict['user_name']] = []
     cookie_dict['room_id'] = join_id
     cookie_value = str(cookie_dict)
-    room_url = f"/room/{join_id}param1={join_id}"
+    #room_url = f"/room/{join_id}param1={join_id}"
+    room_url = f"/room/{join_id}"
     response = RedirectResponse(url=room_url)
     response.set_cookie(key="example_cookie", value=cookie_value)
     print("here")
@@ -96,15 +102,15 @@ async def join_room(join_id: int = Form(...), example_cookie: str = Cookie(None)
 @app.post("/room/{room_id}")
 def test():
     return FileResponse("static/room.html")
+
 @app.get("/room/{room_id}")
-async def room_info(param1: int):
-    room_id = param1
+async def room_info(room_id: int):
     print("HAHA")
     print(room_id)
     for test_room in rooms:
         if room_id == test_room.id:
             break
-    return {"room_id": room_id, "rooms": room_info}
+    return {"user_list": test_room.users}
 
 @app.post("/get-play")
 async def get_play(response:Response, example_cookie: str = Cookie(None)):
@@ -127,7 +133,7 @@ async def get_play(response:Response, example_cookie: str = Cookie(None)):
                 #참여자
                 if test_room.flag == 0:
                     #아직 시작 안함
-                    return RedirectResponse("/room/"+cookie_dict['room_id'])
+                    return RedirectResponse("/room/"+str(cookie_dict['room_id']))
                 else:
                     #시작함.
                     cookie_dict['game_ctr'] = 0
@@ -136,6 +142,54 @@ async def get_play(response:Response, example_cookie: str = Cookie(None)):
                     response.set_cookie(key="example_cookie", value=cookie_value)
                     return response
             
+
+@app.post("/room/{room_id}/game/{game_ctr}")
+def test():
+    return FileResponse("static/game.html")
+
+@app.get("/room/{room_id}/game/{game_ctr}")
+async def game_info(room_id: int, game_ctr: int):
+    print("HOHO")
+    return {"left_img":image_left[game_ctr], "right_img":image_right[game_ctr]}
+
+@app.get("/room/{room_id}/game/{game_ctr}/{img_path}")
+async def game_info(room_id: int, game_ctr: int, img_path: str):
+    print("HE")
+    return FileResponse("img/" + img_path, media_type="image/jpeg")
+
+@app.post("/left/")
+def get_left(example_cookie: str = Cookie(None)):
+    print("left")
+    cookie_dict = eval(example_cookie)
+    room_id = cookie_dict['room_id']
+    for test_room in rooms:
+        if room_id == test_room.id:
+            break
+    user_name = cookie_dict['user_name']
+    test_room.result[user_name].append(0)
+    cookie_dict['game_ctr'] += 1
+    response = RedirectResponse("/room/"+str(room_id)+"/game/"+str(cookie_dict['game_ctr']))
+    cookie_value = str(cookie_dict)
+    response.set_cookie(key="example_cookie", value=cookie_value)
+    return response
+@app.post("/right/")
+def get_right(example_cookie: str = Cookie(None)):
+    print("right")
+    cookie_dict = eval(example_cookie)
+    room_id = cookie_dict['room_id']
+    for test_room in rooms:
+        if room_id == test_room.id:
+            break
+    user_name = cookie_dict['user_name']
+    test_room.result[user_name].append(1) #right is 1
+    cookie_dict['game_ctr'] += 1
+    response = RedirectResponse("/room/"+str(room_id)+"/game/"+str(cookie_dict['game_ctr']))
+    cookie_value = str(cookie_dict)
+    response.set_cookie(key="example_cookie", value=cookie_value)
+    return response
+
+
+
 
 if __name__ == "__main__":
     import uvicorn

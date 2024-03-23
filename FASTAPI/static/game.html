@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Images</title>
+</head>
+<body>
+    <h1>Left Image</h1>
+    <img id="left-image" src="" alt="Left Image" width="300">
+    
+    <h1>Right Image</h1>
+    <img id="right-image" src="" alt="Right Image" width="300">
+
+    <form action="/left/" method="post">
+        <button type="submit">LEFT</button>
+    </form>
+    <form action="/right/" method="post">
+        <button type="submit">RIGHT</button>
+    </form>
+
+    <script>
+        // 페이지가 로드될 때 이미지 표시 함수 호출
+        async function fetchItems() {
+            const response = await fetch(window.location.href);
+            const data = await response.json();
+            const left_image = document.getElementById("left-image");
+            var currentUrl = window.location.href;
+            console.log(currentUrl + "/" + data["left_img"])
+            left_image.src = currentUrl + "/" + data["left_img"]
+            const right_image = document.getElementById("right-image");
+            right_image.src = currentUrl + "/" + data["right_img"]
+        }
+        fetchItems();
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchItems();
+            // 5초마다 페이지 새로고침
+            setInterval(fetchItems, 5000);
+        });
+    </script>
+</body>
+</html>
